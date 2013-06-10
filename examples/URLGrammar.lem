@@ -1,0 +1,162 @@
+
+%name URLParser
+%namespace Util
+
+%token_prefix TOK_
+%token_type { std::string }
+%extra_argument { Util::URL &outURL }
+
+%include
+{
+////////////////////////////////////////
+
+
+#include <Core.h>
+#include <Util/URL.h>
+
+
+////////////////////////////////////////
+}
+
+
+////////////////////////////////////////
+
+
+%type url { Util::URL }
+
+start ::= url(U).
+{
+	outURL = U;
+}
+
+
+////////////////////////////////////////
+
+
+url(R) ::= IDENTIFIER(F) COLON SLASH SLASH target(T) path(P) arguments(A) filters(L).
+{
+	R = Util::URL();
+	R.setFileSystem( F );
+	R.setUserID( T[0] );
+	R.setPassword( T[1] );
+	R.setHost( T[2] );
+	R.setPort( T[3] );
+	R.setPath( P );
+	R.setArguments( A );
+	R.setPostFilters( L );
+}
+
+url(R) ::= IDENTIFIER(F) COLON SLASH SLASH target(T) LBRACE url(U) RBRACE path(P) arguments(A) filters(L).
+{
+	R = Util::URL();
+
+	R.setFileSystem( F );
+	R.setUserID( T[0] );
+	R.setPassword( T[1] );
+	R.setHost( T[2] );
+	R.setPort( T[3] );
+	R.setHandoffURL( U );
+	R.setPath( P );
+	R.setArguments( A );
+	R.setPostFilters( L );
+}
+
+
+////////////////////////////////////////
+
+
+%type target { std::vector< std::string > }
+
+target(R) ::= .
+{
+	R = std::vector< std::string >( 4 );
+	R[2] = "localhost";
+}
+
+target(R) ::= IDENTIFIER(H).
+{
+	R = std::vector< std::string >( 4 );
+	R[2] = H;
+}
+
+target(R) ::= IDENTIFIER(U) AT IDENTIFIER(H).
+{
+	R = std::vector< std::string >( 4 );
+	R[0] = U;
+	R[2] = H;
+}
+
+target(R) ::= IDENTIFIER(U) COLON IDENTIFIER(W) AT IDENTIFIER(H).
+{
+	R = std::vector< std::string >( 4 );
+	R[0] = U;
+	R[1] = W;
+	R[2] = H;
+}
+
+target(R) ::= IDENTIFIER(U) COLON IDENTIFIER(W) AT IDENTIFIER(H) COLON IDENTIFIER(P).
+{
+	R = std::vector< std::string >( 4 );
+	R[0] = U;
+	R[1] = W;
+	R[2] = H;
+	R[3] = P;
+}
+
+
+////////////////////////////////////////
+
+
+%type path { std::string }
+
+path(R) ::= .
+{
+	R = std::string();
+}
+
+path(R) ::= path(O) SLASH IDENTIFIER(N).
+{
+	R = O;
+	R.push_back( '/' );
+	R.append( N );
+}
+
+
+////////////////////////////////////////
+
+
+%type arguments { Util::URL::ArgList }
+
+arguments(R) ::= .
+{
+	R = Util::URL::ArgList();
+}
+
+arguments(R) ::= arguments(O) ARGBEGIN IDENTIFIER(N) EQUAL IDENTIFIER(V).
+{
+	R = O;
+	R.push_back( Util::URL::Argument( N, V ) );
+}
+
+arguments(R) ::= arguments(O) ARGSEP IDENTIFIER(N) EQUAL IDENTIFIER(V).
+{
+	R = O;
+	R.push_back( Util::URL::Argument( N, V ) );
+}
+
+
+////////////////////////////////////////
+
+
+%type filters { std::vector< std::string > }
+
+filters(R) ::= .
+{
+	R = std::vector< std::string >();
+}
+
+filters(R) ::= filters(O) PIPE IDENTIFIER(N).
+{
+	R = O;
+	R.push_back( N );
+}
