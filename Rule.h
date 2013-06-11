@@ -44,7 +44,7 @@ public:
 	typedef RHSList::iterator RHSListIter;
 	typedef RHSList::const_iterator RHSListConstIter;
 
-	Rule( const std::string &lhs, int ruleIndex );
+	Rule( const std::string &lhs, size_t ruleIndex );
 	~Rule( void );
 	
 	/// The left hand side for the rule
@@ -52,7 +52,7 @@ public:
 	Symbol *getLHSSymbol( void ) const;
 	
 	/// Rule index for use during rule production analysis.
-	inline int getRuleIndex( void ) const { return myRuleIndex; }
+	inline size_t getRuleIndex( void ) const { return myRuleIndex; }
 	
 	/// Alias for left hand side.
 	void setLHSAlias( const std::string &lhsalias );
@@ -86,7 +86,7 @@ private:
 	Rule( const Rule &other );
 	Rule &operator=( const Rule &other );
 	
-	int			 myRuleIndex;
+	size_t		 myRuleIndex;
 	std::string	 myLHS;
 	std::string	 myLHSAlias;
 	int			 myRuleLine;

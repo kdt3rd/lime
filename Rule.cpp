@@ -34,7 +34,7 @@
 ////////////////////////////////////////
 
 
-Rule::Rule( const std::string &lhs, int ruleIndex )
+Rule::Rule( const std::string &lhs, size_t ruleIndex )
 		: myRuleIndex( ruleIndex ), myLHS( lhs ), myRuleLine( 0 ),
 		  myCodeLine( 0 ), myCanReduce( false )
 {

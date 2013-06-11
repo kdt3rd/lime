@@ -64,8 +64,9 @@ Parser::setSourceFile( const std::string &sourceFile )
 
 
 // Skip C++ comments to end of line
-inline void skipCPPComment( std::string::iterator &curP,
-							std::string::iterator  endP )
+static void
+skipCPPComment( std::string::iterator &curP,
+				std::string::iterator  endP )
 {
 	curP += 2;
 	while ( curP != endP && *curP != '\n' )
@@ -76,9 +77,10 @@ inline void skipCPPComment( std::string::iterator &curP,
 ////////////////////////////////////////
 
 
-inline void skipCComment( std::string::iterator &curP,
-						  int					&curLine,
-						  std::string::iterator	 endP )
+static void
+skipCComment( std::string::iterator &curP,
+			  int					&curLine,
+			  std::string::iterator	 endP )
 {
 	// Skip C comment. Little tricker than C++... :/
 	int curNest = 1;
@@ -123,10 +125,11 @@ inline void skipCComment( std::string::iterator &curP,
 ////////////////////////////////////////
 
 
-inline void skipStringLiteral( std::string::iterator	&curP,
-							   int						&curLine,
-							   std::string::iterator	 endP,
-							   char						 startChar = '\"' )
+static void
+skipStringLiteral( std::string::iterator	&curP,
+				   int						&curLine,
+				   std::string::iterator	 endP,
+				   char						 startChar = '\"' )
 {
 	++curP;
 	while ( curP != endP )

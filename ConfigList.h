@@ -57,7 +57,7 @@ public:
 	void	resetPointers( void );
 	void	reset( void );
 private:
-	Config *find( int ruleidx, int dot );
+	Config *find( size_t ruleidx, int dot );
 	
 	typedef std::vector< Config * >	List;
 	typedef List::iterator			ListIter;

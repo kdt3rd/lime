@@ -352,7 +352,7 @@ ConfigList::reset( void )
 
 
 Config *
-ConfigList::find( int ruleidx, int dot )
+ConfigList::find( size_t ruleidx, int dot )
 {
 	ListIter i, e;
 	Config *retval = 0;

@@ -104,7 +104,7 @@ private:
 	std::string myNameSpace;
 	std::string myPimplName;
 	
-	int myCurLineNum;
+	size_t myCurLineNum = 0;
 };
 
 
