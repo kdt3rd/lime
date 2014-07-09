@@ -1217,8 +1217,8 @@ ZDriver::emitDestructor( const std::string	&type,
 
 void
 ZDriver::emitLineInfo( const std::string	&srcFile,
-					   int				 line,
-					   std::ostream		&out )
+					   size_t				 line,
+					   std::ostream			&out )
 {
 	out << "#line " << line << " \"" << srcFile << "\"" << endl();
 }

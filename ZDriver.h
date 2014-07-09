@@ -82,7 +82,7 @@ private:
 						 const std::string	&dtor,
 						 std::ostream		&out );
 	void emitLineInfo( const std::string	&srcFile,
-					   int					 line,
+					   size_t				 line,
 					   std::ostream			&out );
 	void emitAction( const Action &act, std::ostream &out );
 	void emitRule( const Rule *rp, std::ostream &out );
@@ -98,7 +98,7 @@ private:
 	friend std::ostream &operator<<( std::ostream &os, ZDriverOutHelp out );
 
 	inline void incOutLine( void );
-	inline int getOutLine( void ) const;
+	inline size_t getOutLine( void ) const;
 
 	std::string myFileName;
 	std::string myExtraArg;
@@ -106,7 +106,7 @@ private:
 	std::string myNameSpace;
 	std::string myPimplName;
 
-	int myCurLineNum;
+	size_t myCurLineNum;
 };
 
 
@@ -118,7 +118,7 @@ inline void ZDriver::incOutLine( void )
 	++myCurLineNum;
 }
 
-inline int ZDriver::getOutLine( void ) const
+inline size_t ZDriver::getOutLine( void ) const
 {
 	return myCurLineNum;
 }

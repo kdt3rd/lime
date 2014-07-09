@@ -51,7 +51,7 @@ OBJS := $(SRC:.cpp=.o)
 
 CXX := g++
 CXXWARNS := all comment inline cast-align switch shadow unused cast-qual conversion format multichar missing-braces parentheses pointer-arith sign-compare return-type overloaded-virtual no-ctor-dtor-privacy non-virtual-dtor pmf-conversions sign-promo write-strings
-CXXFLAGS := -Os -pipe -fPIC $(addprefix -W,$(CXXWARNS))
+CXXFLAGS := -Os -pipe -fPIC --std=c++11 $(addprefix -W,$(CXXWARNS))
 
 .PHONY: default install
 

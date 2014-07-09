@@ -1238,7 +1238,7 @@ CPPDriver::emitDestructor( const std::string	&type,
 
 void
 CPPDriver::emitLineInfo( const std::string	&srcFile,
-						 int				 line,
+						 size_t				 line,
 						 std::ostream		&out )
 {
 	out << "#line " << line << " \"" << srcFile << "\"" << endl();

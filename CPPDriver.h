@@ -82,7 +82,7 @@ private:
 						 const std::string	&dtor,
 						 std::ostream		&out );
 	void emitLineInfo( const std::string	&srcFile,
-					   int					 line,
+					   size_t				 line,
 					   std::ostream			&out );
 	void emitAction( const Action &act, std::ostream &out );
 	void emitRule( const Rule *rp, std::ostream &out );
@@ -96,7 +96,7 @@ private:
 	friend std::ostream &operator<<( std::ostream &os, CPPDriverOutHelp out );
 	
 	inline void incOutLine( void );
-	inline int getOutLine( void ) const;
+	inline size_t getOutLine( void ) const;
 	
 	std::string myFileName;
 	std::string myExtraArg;
@@ -116,7 +116,7 @@ inline void CPPDriver::incOutLine( void )
 	++myCurLineNum;
 }
 
-inline int CPPDriver::getOutLine( void ) const
+inline size_t CPPDriver::getOutLine( void ) const
 {
 	return myCurLineNum;
 }
